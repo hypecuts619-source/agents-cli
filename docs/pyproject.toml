@@ -24,5 +24,3 @@ dependencies = [
     "google-agents-cli",
 ]
 
-[tool.uv.sources]
-google-agents-cli = { path = "..", editable = true }
