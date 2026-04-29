@@ -12,7 +12,7 @@ description: >
 metadata:
   author: Google
   license: Apache-2.0
-  version: 0.1.1
+  version: 0.1.2
   requires:
     bins:
       - agents-cli
@@ -114,7 +114,9 @@ agents-cli infra single-project
 | `--dry-run` / `-n` | Print what would be executed without running it | All |
 | `--no-confirm-project` | Skip project confirmation prompt | All |
 
-Run `agents-cli deploy --help` for the full flag reference. Cloud Run also accepts extra `gcloud` flags after `--` (e.g., `-- --timeout=600`).
+Run `agents-cli deploy --help` for the full flag reference.
+
+> **Advanced Cloud Run Deploys:** If you need features not exposed via `agents-cli` flags, use `--dry-run` (or `-n`) to print the full `gcloud` command, copy it, and add additional arguments as needed.
 
 > **Project Confirmation:** If the project is resolved automatically (not passed via `--project`), the command will prompt for confirmation in interactive mode. Since agents typically run in non-interactive mode, you MUST pass `--no-confirm-project` to proceed if you are relying on automatic project resolution.
 

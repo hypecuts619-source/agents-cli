@@ -32,7 +32,27 @@ gcloud config set project YOUR_DEV_PROJECT_ID
 agents-cli deploy
 ```
 
-The command reads your `deployment_target` from `pyproject.toml` and dispatches to the right flow.
+The command reads your `deployment_target` from `pyproject.toml` and dispatches to the right flow:
+
+| `deployment_target`  | What happens                                  |
+|----------------------|-----------------------------------------------|
+| `agent_runtime`      | Agent Runtime deployment (fully managed)       |
+| `cloud_run`          | `gcloud beta run deploy` (container on Cloud Run) |
+| `gke`                | Terraform + Docker build + `kubectl apply`     |
+
+The deployment target is set when you create your project:
+
+```bash
+agents-cli create my-agent -d cloud_run    # or agent_runtime, gke
+```
+
+To change the deployment target for an existing project, use `scaffold enhance`:
+
+```bash
+agents-cli scaffold enhance -d cloud_run
+```
+
+Run `agents-cli scaffold enhance --help` to see all available options.
 
 !!! tip
     To enable observability features (prompt-response logging, content logs), run `agents-cli infra single-project` after deploying. Terraform provisions the telemetry resources and updates your service to use them. See the [Observability Guide](observability/index.md) for details.
@@ -50,6 +70,8 @@ agents-cli deploy --status  # Check deployment status
 
 ### Agent Runtime
 
+*Selected with `agents-cli create my-agent -d agent_runtime` or `deployment_target = "agent_runtime"` in `pyproject.toml`.*
+
 Fully managed — no containers or infrastructure to manage:
 
 ```bash
@@ -65,17 +87,18 @@ agents-cli deploy --status      # Check progress later
 
 ### Cloud Run
 
+*Selected with `agents-cli create my-agent -d cloud_run` or `deployment_target = "cloud_run"` in `pyproject.toml`.*
+
 Builds a container from source and deploys as a Cloud Run service:
 
 ```bash
 agents-cli deploy --project my-gcp-project --region us-east1
 ```
 
-Override resource limits or pass extra `gcloud` flags:
+Override resource limits:
 
 ```bash
 agents-cli deploy --memory 8Gi --port 8080
-agents-cli deploy -- --min-instances=1 --max-instances=10
 ```
 
 Deploy a pre-built image instead of building from source:
@@ -84,7 +107,12 @@ Deploy a pre-built image instead of building from source:
 agents-cli deploy --image gcr.io/my-project/my-agent:v1
 ```
 
+!!! tip
+    If you need more advanced Cloud Run deployment features not exposed via `agents-cli` flags, use `--dry-run` (or `-n`) to print the full `gcloud` command. You can then copy it and add additional arguments as needed.
+
 ### GKE
+
+*Selected with `agents-cli create my-agent -d gke` or `deployment_target = "gke"` in `pyproject.toml`.*
 
 Deploys to a GKE cluster using Terraform and kubectl:
 
