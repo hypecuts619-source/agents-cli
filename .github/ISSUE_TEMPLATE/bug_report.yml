@@ -56,7 +56,7 @@ body:
     id: 'info'
     attributes:
       label: 'Client information'
-      description: 'Please paste the full text from `agents-cli info`. Also include which platform (macOS, Windows, Linux).'
+      description: 'Please paste the full text from `agents-cli info`.'
       value: |-
         <details>
         <summary>Client Information</summary>

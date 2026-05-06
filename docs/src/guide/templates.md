@@ -22,7 +22,7 @@ agents-cli create my-agent --agent adk
 
 ### adk_a2a
 
-Extends the base `adk` template with [Agent-to-Agent (A2A) protocol](https://google.github.io/A2A/) support. Use this when your agent needs to interoperate with agents built on other frameworks (LangGraph, CrewAI, etc.) or when building a distributed multi-agent system.
+Extends the base `adk` template with [Agent-to-Agent (A2A) protocol](https://a2a-protocol.org) support. Use this when your agent needs to interoperate with agents built on other frameworks (LangGraph, CrewAI, etc.) or when building a distributed multi-agent system.
 
 ```bash
 agents-cli create my-agent --agent adk_a2a

@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.3] - 2026-05-06
+- Default `infra` commands to terraform plan instead of apply
+- Fix `playground` to work for Cloud Shell and other similar envs and be more transparent about the underlying command
+- Update skills to cover need for cloud sql role
+- Make `agents-cli info` print OS info for easier bug reporting
+- Make `run` only start a background server when requested with `--start-server`
+- Clearer display string for ADC auth
+- Fix broken doc links
+- Fix missing target description for agent_runtime
+
 ## [0.1.2] - 2026-04-29
 - Document & image fixes
 - Project metadata fixes
